@@ -1,0 +1,113 @@
+﻿@model Models.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Index</h1>
+
+<h4>User</h4>
+<hr />
+        <form asp-action="NewUser">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="User.Lastname" class="control-label"></label>
+                        <input asp-for="User.Lastname" class="form-control" />
+                        <span asp-validation-for="User.Lastname" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.Firstname" class="control-label"></label>
+                        <input asp-for="User.Firstname" class="form-control" />
+                        <span asp-validation-for="User.Firstname" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.BirthDate" class="control-label"></label>
+                        <input asp-for="User.BirthDate" class="form-control" />
+                        <span asp-validation-for="User.BirthDate" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.NationalNumber" class="control-label"></label>
+                        <input id="niss" asp-for="User.NationalNumber" class="form-control" />
+                        <span id="nissValidate" asp-validation-for="User.NationalNumber" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.CompanyStatus" class="control-label">Status</label>
+                        <select asp-for="User.CompanyStatus" class="form-control">
+                            <option value=1>Client</option>
+                            <option value=2>Technicien</option>
+                        </select>
+                        <span asp-validation-for="User.CompanyStatus" class="text-danger"> </span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="User.Phonenumber" class="control-label"></label>
+                        <input asp-for="User.Phonenumber" class="form-control" />
+                        <span asp-validation-for="User.Phonenumber" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.Email" class="control-label"></label>
+                        <input asp-for="User.Email" class="form-control" />
+                        <span asp-validation-for="User.Email" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserPassword" class="control-label">Password</label>
+                        <input type="password" asp-for="UserPassword" class="form-control" />
+                        
+                        <span asp-validation-for="UserPassword" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmUserPassword" class="control-label"></label>
+                        <input type="password" asp-for="ConfirmUserPassword" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.Sex" class="control-label"></label>
+                        <input asp-for="User.Sex" class="form-control" />
+                        <span asp-validation-for="User.Sex" class="text-danger"> </span>
+                    </div>
+                    
+                </div>
+            </div>
+            <hr />
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="User.PrivateAddress.HouseNumber" class="control-label"></label>
+                        <input asp-for="User.PrivateAddress.HouseNumber" class="form-control" />
+                        <span asp-validation-for="User.PrivateAddress.HouseNumber" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.PrivateAddress.StreetName" class="control-label"></label>
+                        <input asp-for="User.PrivateAddress.StreetName" class="form-control" />
+                        <span asp-validation-for="User.PrivateAddress.StreetName" class="text-danger"> </span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="User.PrivateAddress.City" class="control-label"></label>
+                        <input asp-for="User.PrivateAddress.City" class="form-control" />
+                        <span asp-validation-for="User.PrivateAddress.City" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User.PrivateAddress.PostalCode" class="control-label"></label>
+                        <input asp-for="User.PrivateAddress.PostalCode" class="form-control" />
+                        <span asp-validation-for="User.PrivateAddress.PostalCode" class="text-danger"> </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
