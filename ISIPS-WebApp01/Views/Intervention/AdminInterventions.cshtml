@@ -1,7 +1,56 @@
-﻿
+﻿@model IEnumerable<Models.ViewModels.AdminInterventionViewModel>
 @{
     ViewData["Title"] = "AdminInterventions";
 }
 
-<h1>AdminInterventions</h1>
+
+
+<p>
+    
+</p>
+<div class="row">
+    <div class="col-6">
+        <h1>Interventions</h1>
+    </div>
+    <div class="col-6">
+        <a class="text-right btn btn-info mb-2" title="Ajouter une nouvelle intervention" asp-action="NewIntervention">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="customCardContainer">
+        @foreach (var intervention in Model)
+        {
+            <div class="customCard">
+                <div class="card-25percent">
+                    <div class="cardSectionHeader">
+                        Client : @intervention.CustomerName ID : @intervention.CustomerId
+                    </div>
+                    <div class="clientInfo">
+                        <p>@intervention.InterventionAddress.HouseNumber, @intervention.InterventionAddress.StreetName</p>
+                        <p>@intervention.InterventionAddress.PostalCode @intervention.InterventionAddress.City</p>
+                    </div>
+                </div>
+                <div class="card-25percent">
+                    <div class="cardSectionHeader">
+                        Technicien : @intervention.TechnicianName
+                    </div>
+                </div>
+                <div class="card-25percent">
+                    <div class="cardSectionHeader">
+                        Adresse de facturation
+                    </div>
+                </div>
+                <div class="card-25percent">
+                    <div class="cardSectionHeader">
+                        Distance avec le technicien
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 

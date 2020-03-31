@@ -16,6 +16,8 @@ namespace Models.ViewModels
 
         public int InterventionId { get => Intervention.InterventionId; }
 
+        public int CustomerId { get => Intervention.Client.UserId; }
+
         public DateTime StartDate
         {
             get { return Intervention.StartDate; }
