@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Models.ViewModels.TechnicianInterventionViewModel>
+
+@{
+    ViewData["Title"] = "TechnicianInterventions";
+}
+
+<h1>TechnicianInterventions</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="customCardContainer">
+    @foreach (var item in Model)
+    {
+    <div class="customCard">
+        <div class="cardClientPart">
+            <div class="cardSectionHeader">
+                @item.CustomerName
+            </div>
+            <div class="clientInfoContainer">
+                <p class="text-info">@item.InterventionAddress.HouseNumber rue @item.InterventionAddress.StreetName @item.InterventionAddress.PostalCode @item.InterventionAddress.City</p>
+            </div>
+        </div>
+        <div class="cardJobDescription text-wrap">
+            <div class="cardSectionHeader">
+                Job description by worker
+            </div>
+            @item.Description
+        </div>
+        <div class="cardExtraInfos">
+            <div class="cardSectionHeader">
+                infos
+            </div>
+            <div class="clientInfoContainer">
+                <span class="text-danger">Prix: @item.Price $</span>
+                <span class="text-danger">Status : </span>
+                
+            </div>
+            
+
+        </div>
+    </div>
+    }     
+
+</div>
+

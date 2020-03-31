@@ -13,6 +13,10 @@ namespace ISIPS_WebApp01.Controllers
 {
     public class IdentityController : Controller
     {
+        //le controller Identity nous permet d'effectuer toutes les actions relatives à l'identification des utilisateurs
+        // les login , logout, et l'enregistrement de nouveaux comptes
+        
+        //On déclare le répository qu'on va utiliser pour ce controller, les action sans attributs sont par défaut des méthodes GET
         IRepository<User> userRepo = new UserRepository();
 
         [Route("/{controller}/")]
@@ -59,7 +63,7 @@ namespace ISIPS_WebApp01.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-
+        // l'attribut actionName est utilisé pour pouvoir appeller cette méthode aec du javascript, en .NET CORE les controllers API et MVC peuvent etre fusionner
         [ActionName("CheckIdentity")]
         public int CheckNationalNumberNotDuplicated()
         {

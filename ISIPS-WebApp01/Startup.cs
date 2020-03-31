@@ -12,6 +12,7 @@ using Repository;
 
 namespace ISIPS_WebApp01
 {
+    // contient tous les objets relatifs à la configuration de notre server.
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -21,14 +22,18 @@ namespace ISIPS_WebApp01
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime. Use this method to add services to the container. 
+        // On peut tou configurer, on peut interdire l'accès a notre site a certains range d'ip, changer la route de notre site par défaut, utiliser certains type de chiffrages spécifiques,
+        // On peut configurer les cookies, changer l'environnement (développement ou production), enable le debug developper dans le navigateur ou l'enlever,
+        // On peut rajouter des middleware relatif a la sécurité, à l'authentification, rajouter des outils analytiques en gros on peut rajouter tous les services disponibles qu'on veut
+        // ce fichier est utiliser dans notre classe program par la méthode Main
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(100);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });

@@ -1,0 +1,36 @@
+﻿Le dossier "controllers" contient tous les controllers de notre webApp.
+Un controller contient lui même des actions qui sont des méthodes. En C# tout est un objet, une fonction liée à un objet est une méthode, 
+un controller est donc aussi un objet mais qui fonctionne d'une manière un peu particulière. En outre, chaque controller que l'on creer doit hériter du type "Controller"
+qui est un type "built-in" dans le framework NET.CORE
+
+Les controllers sont les points d'entrée de notre webApp, une requête HTTP est envoyée depuis un client (navigateur) vers notre server web
+chaque requête HTTP qui arrive sur le server va etre parsée, une requete web arrivant sur le server a tjs
+la mm structure : 
+
+[addresseIP_du_site_Ou_Nom_De_Domaine]/[controller]/[Action]/[paramètre(s)]  => nous deploierons notre site sur notre propre machine (localhost),
+																				dans notre cas nous sommes en mm temps client(processus du navigatuer) et server(processus du server IIS)
+
+une requete peut avoir 2 types : GET ou POST -> GET demaande des infos a un server et POST envois des infos a un server mais en fonction de ce qu'on envois le server nous renvois
+quand mm une page web ou des infos lors d'un post , par exemple quand on poste un formulaire sur le server on doit quand mm savoir si les infos on bien été enregistrée, donc
+dans les faits les requetes post sont des post nous renvois quand mm des données 99 % du temps, ca reste quand mm des requetes post, faites donc attention a la confusion. 
+
+Quand la requête arrive sur notre server l'engine d'ASP.NET va essayer de trouver le controller dans nos fichiers, si il trouve cet objet
+il va chercher le nom de la méthode correspondante à celle de la requete et le server va executer cette méthode.
+Le parametre d'une methode de controller correspond aux parametre de la requete web
+
+par exemple : monsite.com/Profile/Get/3 correspond a => class Profile : Controller
+														{
+															public IActionResult Get(int param)
+															{
+																Profile profile = vaMeChercherLeProfileDansLaDb(param);
+																return View(Profile);
+															}
+														}
+
+L'architecture MVC (MODELE-VUE-CONTROLLER) en principe est assez simple:
+
+un controller est exécuté par une requetes exterieure, il va aller chercher une donnée dans la base de donnée et va "envoyer" ou plutot "fetch" ces données dans un objet creer par no soin,
+c'est objet c'est notre modèle, le M de MVC, il va ensuite envoyer cette objet dans une vue, 
+Une vue c'est juste une page d'html (dans notre ca de cshtml, CS = c sharp) qui va acceuillir les différentes infos de notre modèle pour pouvoir les afficher dans notre navigateur
+
+En gros un controller nous renvois une vue qui contient elle même un modèle, ce qui permet d'avoir un squelette unique qui peut acceuillir des données différentes.

@@ -13,6 +13,7 @@ namespace Models.DataModels
         public double Price { get; set; }
         public int Duration { get; set; }
         public bool IsOnGoing { get; set; }
+        public string Description { get; set; }
         public Address InterventionAddress { get; set; } = new Address();
         public User Technician { get; set; } = new User();
         public User Client { get; set; } = new User();

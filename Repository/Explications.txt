@@ -1,0 +1,8 @@
+﻿Le repository est un pattern très connu utilisé dans 1000 language pour modèliser des objets qui vont aller chercher des record dans la db pour nous
+il se compose d'une interface IRepository dont les repository concrets (un par table db) vont heriter. IRepository contient toutes les opérations CRUD de bases
+(C = Create, R = Retrieve, U = Update, D = Delete) qui correspond en language SQL à INSERT, SELECT, UPDATE, DELETE. l'interface est héritée et implémentée différement
+dans chaque repository
+
+par exemple : le UserRepository va voir dans la table User et return un objet de type User en C#, ces objets vont le lien entre la DB et le server par le biais d'un mapper
+
+exemple : User user1 = new UserRepository().Select(1);

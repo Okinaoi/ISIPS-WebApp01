@@ -11,6 +11,7 @@ namespace Repository
     public class AddressRepository : IRepository<Address>
     {
         Connection conn = new Connection(StaticValues.IsipsDbConnectionString);
+
         public void Delete(int id)
         {
             throw new NotImplementedException();

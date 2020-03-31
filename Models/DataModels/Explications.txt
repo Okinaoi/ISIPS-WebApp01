@@ -1,0 +1,23 @@
+﻿
+-------------- DATA MODELES------------------
+
+Le but de tout objet est de modèliser d'autre objet, de la vie réelle ou parfois d'autre objets virtuelles qui ont un fonctionnement différents, en théorie on peut modèliser n'importe quoi
+Les dataModels sont des objets qui ont pour but unique de modèliser fidèlement des tables d'une base de données qu'elle que soit la technologie utilisée pour stocker ces données
+mm si les objets contiennent presque toujours des méthodes , des indexers , des champs , des propriétés, des delegates, etc.... La convention pour les data modèles est qu'il ne doivent
+contenir QUE des propriétés uniquement. Dans une Database il n'y pas pas d'actions stockée dans les tables , ce sont juste des données qui sont stockées. Nos objets doivent donc faire
+de même. La raison pour laquelle on doit utiliser des propriétés plustot que des champs est que l'engine d'asp doit pouvoir bind ces données a des pages html lors de créations de formulaires
+par exemple, et il ne peut le faire qu'avec des propriétés et non des champs.
+
+
+
+-------------- DTO's------------------
+
+Les DTO ou Data Transfert Objects sont généralement utilisé pour transférer des données entre 2 systèmes ou sur le réseau, ils continnent donc uniquement des propriétés et sont généralement
+des objets utilisés très spécifiquement quand il y a peu de données et ils sont souvent des objets contenant juste 2 ou 3 propriétés d'un data modeles plus grand
+
+-------------- ViewModels------------------
+
+Les view modeles comme leur noms l'indique sont des objets dont la seule vocation est d'être utilisé dans une interface graphique, ils sont donc creer en fonction de la technologie front end utilisée
+dans notre cas c'est l'html dans une interface Web. On peut directement utiliser nos data modèles dans les controller pour les envoyer dans de vues(mm si thierry me tuerait en lisant ça)
+Mais parfois on va devoir montrer plusieurs modèles, ou des liste de ces modèles ou une liste de modèles associée a un autre. Dans ce cas ces viewmodeles nous permettent
+de faire des combinaisons différentes de tout ce datamodeles dans des objets plus complexes en fonction des besoins sans devoir recreer de repository supplémentaires

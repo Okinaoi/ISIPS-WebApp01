@@ -76,6 +76,7 @@ namespace ToolBox.Mappers
                 inter.EndDate = (DateTime)dr["EndDate"];
                 inter.Duration = (int)dr["Duration"];
                 inter.IsOnGoing = ((int)dr["IsOnGoing"]).ToBoolean();
+                inter.Description = dr["WorkDescription"].ToString();
                 inter.Technician.UserId = (int)dr["tech_UserId"];
                 inter.Technician.Firstname = dr["tech_Firstname"].ToString();
                 inter.Technician.Lastname = dr["tech_Lastname"].ToString();

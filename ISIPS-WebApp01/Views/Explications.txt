@@ -1,0 +1,22 @@
+﻿Les views en asp sont des fichiers HTML contenant du C#. Ils penvent référencer des scripts JS ou des fichier CSS comme ni'mporte qu'elle fichier HTML
+la première ligne de code de toute les pages HTML de notre site est la plus importante elle indique a la view quelle modèle elle doit recevoir ou envoyer
+un @ dans un fichier cshtml signifie que l'on veut ecrire du code C# et non de l'html. Le @model Users par exemple indique a la vue qu'elle est associée au modèle user
+si on veut afficher le prénom de l'utilisateur envoyé dans la vue on doit utiliser @Modele (avec une majuscule donc et non une minuscule), en gros @model pour déclarer le type en début de fichier
+et @Model pour récupérer l'instance en elle même =>
+
+													un exemple avec un label qui contient le prénom d'une certaine instance d'objet de type User => <label>@Model.Firstname</label>
+
+A noter que les modèles envoyé dans les vues doivent contenir des propriétés et non des champs.
+Il y a cependant des attributs supplémentaires associés aux balises html dans des fichier cshtml les principaux sont :
+
+	- asp-for => permet d'associer une balise a la propiété de notre objet (model), c'est utile lorsqu'on envois un formulaire au server.
+
+						exemple : <input asp-for="Firstname"></input> => quand on enverra l'entièreté du formulaire notre controller recevra dans son paramètre un objet user, asp-for nous permet
+						d'indiquer à l'engine d'asp que l'input correspond a la propriété firstname de cet objet.
+
+	- asp-action => permet d'indiquer qu'un boutton déclenche une certaine méthode
+	- asp-controller => permet d'indiquer a un boutton ou a un lien qu'il est lié a tel ou telle controller
+
+		les deux "tag helper" du dessus sont souvent utilisés ensemble quand le boutton d'une vue référence une méthode qui est dans un autre controller on est obligé de l'utiliser, si le boutton
+		reference une methode dans le mm controller on utilise que action
+				
