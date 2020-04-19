@@ -39,15 +39,15 @@ namespace Repository
 
         public IEnumerable<User> Select()
         {
-            Command command = new Command("SELECT U.*, A.* FROM Users U JOIN Addresses A ON A.AddressId = U.UserId");
+            Command command = new Command("SELECT U.*, A.* FROM Users U JOIN Addresses A ON A.AddressId = U.PrivateAddressId");
             return conn.ExecuteReader(command, dr => dr.ToUser(withAddress: true));
         }
 
         public User Select(int id)
         {
             Command command = new Command("SELECT U.*, A.* " +
-                                          "FROM Users U" +
-                                          "JOIN Addresses A ON A.AddressId = U.UserId" +
+                                          "FROM Users U " +
+                                          "JOIN Addresses A ON A.AddressId = U.PrivateAddressId " +
                                           "WHERE U.UserId = @id");
             command.AddParameter("id", id);
             return conn.ExecuteReaderSingle(command, dr => dr.ToUser(withAddress: true));
@@ -56,16 +56,16 @@ namespace Repository
         public User Update(User entity)
         {
             AddressRepository ar = new AddressRepository();
-            Command command = new Command("UPDATE Users" +
-                                          "SET Lastname = @ln" +
-                                              "Firstname = @fn" +
-                                              "BirthDate = @bd" +
-                                              "NationalNumber = @nn" +
-                                              "PhoneNumber = @pn" +
-                                              "Email = @mail" +
-                                              "Sex = @sex" +
-                                              "CompanyStatus = @cs" +
-                                              "OUTPUT inserted.*" + 
+            Command command = new Command("UPDATE Users " +
+                                          "SET Lastname = @ln," +
+                                              "Firstname = @fn," +
+                                              "BirthDate = @bd," +
+                                              "NationalNumber = @nn," +
+                                              "PhoneNumber = @pn," +
+                                              "Email = @mail," +
+                                              "Sex = @sex," +
+                                              $"CompanyStatus = {entity.CompanyStatus}" +
+                                              "OUTPUT inserted.* " + 
                                               "WHERE UserId = @uid");
             command.AddParameter("ln", entity.Lastname);
             command.AddParameter("fn", entity.Firstname);
@@ -75,7 +75,6 @@ namespace Repository
             command.AddParameter("mail", entity.Email);
             command.AddParameter("pwd", entity.Password);
             command.AddParameter("sex", entity.Sex);
-            command.AddParameter("cs", entity.CompanyStatus);
             command.AddParameter("uid", entity.UserId);
             // TODO : update the address
 
@@ -89,7 +88,12 @@ namespace Repository
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Command commandCheck = new Command("SELECT COUNT(*) FROM Users WHERE UserId = @id");
+            commandCheck.AddParameter("id", id);
+            int rowCount = (int)conn.ExecuteScalar(commandCheck);
+            Command command = new Command("DELETE FROM Users WHERE UserId = @id");
+            command.AddParameter("id", id);
+            conn.ExecuteNonQuery(command);
         }
     }
 }

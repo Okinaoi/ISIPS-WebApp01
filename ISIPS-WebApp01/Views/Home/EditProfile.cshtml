@@ -1,0 +1,102 @@
+﻿@model Models.DataModels.User
+
+@{
+    ViewData["Title"] = "EditProfile";
+}
+
+<h1>EditProfile</h1>
+
+<h4>User</h4>
+<hr />
+        <form asp-action="UpdateUserProfile" onsubmit="submitForm()">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="UserId"/>
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Lastname" class="control-label"></label>
+                        <input asp-for="Lastname" class="form-control" />
+                        <span asp-validation-for="Lastname" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Firstname" class="control-label"></label>
+                        <input asp-for="Firstname" class="form-control" />
+                        <span asp-validation-for="Firstname" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BirthDate" class="control-label"></label>
+                        <input asp-for="BirthDate" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NationalNumber" class="control-label"></label>
+                        <input id="niss" asp-for="NationalNumber" class="form-control" />
+                        <span id="nissValidate" asp-validation-for="NationalNumber" class="text-danger"> </span>
+                    </div>
+                    
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Phonenumber" class="control-label"></label>
+                        <input asp-for="Phonenumber" class="form-control" />
+                        <span asp-validation-for="Phonenumber" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Sex" class="control-label"></label>
+                        <input asp-for="Sex" class="form-control" />
+                        <span asp-validation-for="Sex" class="text-danger"> </span>
+                    </div>
+                    <input hidden asp-for="CompanyStatus" />
+                </div>
+            </div>
+            <hr />
+            <div class="form-row">
+                <input hidden asp-for="PrivateAddress.AddressId"/>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="PrivateAddress.HouseNumber" class="control-label"></label>
+                        <input asp-for="PrivateAddress.HouseNumber" class="form-control" />
+                        <span asp-validation-for="PrivateAddress.HouseNumber" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PrivateAddress.StreetName" class="control-label"></label>
+                        <input asp-for="PrivateAddress.StreetName" class="form-control" />
+                        <span asp-validation-for="PrivateAddress.StreetName" class="text-danger"> </span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="PrivateAddress.City" class="control-label"></label>
+                        <input asp-for="PrivateAddress.City" class="form-control" />
+                        <span asp-validation-for="PrivateAddress.City" class="text-danger"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PrivateAddress.PostalCode" class="control-label"></label>
+                        <input asp-for="PrivateAddress.PostalCode" class="form-control" />
+                        <span asp-validation-for="PrivateAddress.PostalCode" class="text-danger"> </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section scripts{ 
+    @*<script>
+        let submitForm = () => {
+            alertify.success("hellotriel");
+        }
+    </script>*@
+}
+
+

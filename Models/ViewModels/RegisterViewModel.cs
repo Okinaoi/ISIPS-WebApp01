@@ -15,7 +15,7 @@ namespace Models.ViewModels
         [Compare("UserPassword", ErrorMessage ="Les mots de passe de corresponde pas")]
         public string ConfirmUserPassword { get; set; }
 
-        public string Status
+        public virtual string Status
         {
             get
             {

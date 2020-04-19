@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/all.min.css" rel="stylesheet" />
     <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/css/alertify.min.css" rel="stylesheet"/>
+    <link href="~/css/alertify.rtl.min.css"/>
 </head>
 <body>
     <header>
@@ -29,7 +31,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Identity" asp-action="Register">Register</a>
                         </li>
-                        @if (Context.Session.Keys.Count() == 0)
+                        @if (Context.Session.GetInt32("sessionId") == null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark btn btn-success" asp-area="" asp-controller="Identity" asp-action="Login">Log in</a>
@@ -41,6 +43,22 @@
                                 <a class="nav-link text-dark btn btn-danger" asp-area="" asp-controller="Identity" asp-action="Logout">Log out</a>
                             </li>
                         }
+                        @if (Context.Session.GetInt32("sessionCompanyStatus") == 1 || Context.Session.GetInt32("sessionCompanyStatus") == 2)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark btn btn-danger" asp-area="" asp-controller="Contract" asp-action="CreateContract">Demande d'intervention</a>
+                            </li>
+                        }
+                        @if (Context.Session.GetInt32("sessionCompanyStatus") == 3)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="UserInfo" asp-action="AllUsers">Utilisateurs</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
+                        </li>
+
 
                     </ul>
                 </div>
@@ -62,6 +80,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/all.min.js"></script>
+    <script src="~/js/alertify.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

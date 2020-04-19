@@ -1,0 +1,147 @@
+﻿@model Models.ViewModels.AdminInterventionViewModel
+@using Repository
+
+@{
+    ViewData["Title"] = "addNewIntervention";
+}
+
+<h1>Nouvelle Intervention</h1>
+<label hidden id="clientPrivateAddressAddressId"></label>
+<label hidden id="clientPrivateAddressHouseNumber"></label>
+<label hidden id="clientPrivateAddressStreetName"></label>
+<label hidden id="clientPrivateAddressPostalCode"></label>
+<label hidden id="clientPrivateAddressCity"></label>
+<hr />
+<form asp-action="addNewIntervention">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="TechnicianName" class="control-label"></label>
+                <select id="techSelection" class="form-control" onchange="updateTechnicianInfo()" asp-for="TechnicianId" asp-items="Services.GetTechnicians().Select(x=> new SelectListItem { Text = x.Lastname +' ' + x.Firstname, Value = x.UserId.ToString() })"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label>
+                <select id="customerSelection" class="form-control" onchange="customerSelectionChanged()" asp-for="CustomerId" asp-items="Services.GetCustomers().Select(x=> new SelectListItem { Text = x.Lastname +' ' + x.Firstname, Value = x.UserId.ToString() })"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <input id="checkBox" type="checkbox" class="form-control" style="height:20px;width:20px;margin-right:20px;margin-left:20px;" onchange="checkboxCheck()" />
+        <label>L'adresse de l'intervention est l'addresse privée du client</label>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col">
+
+            <div class="form-group">
+                <input hidden id="AddressId" asp-for="InterventionAddress.AddressId" class="form-control" />
+            </div>
+            @*<div class="form-group">
+                    <input hidden id="ClientId" asp-for="@Model.ClientId" class="form-control" />
+                </div>*@
+            <div class="form-group">
+                <label asp-for="InterventionAddress.HouseNumber" class="control-label"></label>
+                <input id="HouseNumber" asp-for="InterventionAddress.HouseNumber" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="InterventionAddress.StreetName" class="control-label"></label>
+                <input id="StreetName" asp-for="InterventionAddress.StreetName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Enregistrer" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="InterventionAddress.PostalCode" class="control-label"></label>
+                <input id="PostalCode" asp-for="InterventionAddress.PostalCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="InterventionAddress.City" class="control-label"></label>
+                <input id="City" asp-for="InterventionAddress.City" class="form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section scripts{
+    <script>
+        let customerSelectionChanged = () => {
+            let selectedCustomerId = document.getElementById("customerSelection").value;
+            $.ajax({
+                url: 'https://localhost:44345/Intervention/GetCustomerInfo/' + selectedCustomerId,
+                type: 'GET',
+                dataType: 'text',
+                success: (data) => {
+                    results = JSON.parse(data);
+                    document.getElementById("clientPrivateAddressAddressId").innerHTML = results["AddressId"];
+                    document.getElementById("clientPrivateAddressHouseNumber").innerHTML = results["HouseNumber"];
+                    document.getElementById("clientPrivateAddressPostalCode").innerHTM = results["StreetName"];
+                    document.getElementById("clientPrivateAddressCity").innerHTML = results["PostalCode"];
+                    document.getElementById("clientPrivateAddressCity").innerHTML = results["City"];
+                    checkboxCheck();
+                }
+            });
+        }
+        let checkboxCheck = () => {
+
+            let cb = document.getElementById("checkBox");
+            console.log(cb.checked)
+            if (cb.checked) {
+
+                let trial = document.getElementById("clientPrivateAddressAddressId").innerHTML;
+                document.getElementById("AddressId").value = trial;
+                document.getElementById("HouseNumber").value = document.getElementById("clientPrivateAddressHouseNumber").innerHTML;
+                let trial2 = document.getElementById("clientPrivateAddressStreetName").innerHTML;
+                document.getElementById("StreetName").value = trial2;
+                document.getElementById("PostalCode").value = document.getElementById("clientPrivateAddressPostalCode").innerHTML;
+                document.getElementById("City").value = document.getElementById("clientPrivateAddressCity").innerHTML;
+                document.getElementById('HouseNumber').readOnly = true;
+                document.getElementById('StreetName').readOnly = true;
+                document.getElementById('PostalCode').readOnly = true;
+                document.getElementById('City').readOnly = true;
+            }
+            else {
+                document.getElementById('AddressId').value = "";
+                document.getElementById('HouseNumber').value = "";
+                document.getElementById('StreetName').value = "";
+                document.getElementById('PostalCode').value = "";
+                document.getElementById('City').value = "";
+                document.getElementById('HouseNumber').readOnly = false;
+                document.getElementById('StreetName').readOnly = false;
+                document.getElementById('PostalCode').readOnly = false;
+                document.getElementById('City').readOnly = false;
+            }
+        }
+    </script>
+}
+

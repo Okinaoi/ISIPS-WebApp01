@@ -1,56 +1,96 @@
 ﻿@model IEnumerable<Models.ViewModels.AdminInterventionViewModel>
+
 @{
     ViewData["Title"] = "AdminInterventions";
 }
 
-
-
-<p>
-    
-</p>
 <div class="row">
-    <div class="col-6">
-        <h1>Interventions</h1>
+    <div class="col">
+        <h1>Interventions chez le client</h1>
     </div>
-    <div class="col-6">
-        <a class="text-right btn btn-info mb-2" title="Ajouter une nouvelle intervention" asp-action="NewIntervention">
-            <i class="fas fa-plus"></i>
-        </a>
-    </div>
-</div>
-<hr />
-<div class="row">
-    <div class="customCardContainer">
-        @foreach (var intervention in Model)
-        {
-            <div class="customCard">
-                <div class="card-25percent">
-                    <div class="cardSectionHeader">
-                        Client : @intervention.CustomerName ID : @intervention.CustomerId
-                    </div>
-                    <div class="clientInfo">
-                        <p>@intervention.InterventionAddress.HouseNumber, @intervention.InterventionAddress.StreetName</p>
-                        <p>@intervention.InterventionAddress.PostalCode @intervention.InterventionAddress.City</p>
-                    </div>
-                </div>
-                <div class="card-25percent">
-                    <div class="cardSectionHeader">
-                        Technicien : @intervention.TechnicianName
-                    </div>
-                </div>
-                <div class="card-25percent">
-                    <div class="cardSectionHeader">
-                        Adresse de facturation
-                    </div>
-                </div>
-                <div class="card-25percent">
-                    <div class="cardSectionHeader">
-                        Distance avec le technicien
-                    </div>
-                </div>
-            </div>
-        }
+    <div class="col text-right">
+        <a class="btn btn-info" asp-action="addNewIntervention" title="Ajouter une nouvelle intervention"><i class="fas fa-plus"></i></a>
     </div>
 </div>
 
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TechnicianId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TechnicianName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+               
+            </th>
+            <th>
+               
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterventionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TechnicianId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TechnicianName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDateString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDateString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId })  
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.InterventionId }) 
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.InterventionId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

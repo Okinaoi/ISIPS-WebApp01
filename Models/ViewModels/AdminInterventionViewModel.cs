@@ -24,11 +24,17 @@ namespace Models.ViewModels
             set { Intervention.StartDate = value; }
         }
 
+        public string StartDateString { get => StartDate.ToString("dd/MM/yyyy"); }
+
+
         public DateTime EndDate
         {
-            get { return Intervention.EndDate; }
+            get { return Intervention.EndDate.Date; }
             set { Intervention.EndDate = value; }
         }
+
+        public string EndDateString { get => EndDate.ToString("dd/MM/yyyy"); }
+
 
         public int Duration
         {
@@ -54,9 +60,19 @@ namespace Models.ViewModels
             set { Intervention.IsOnGoing = value; }
         }
 
+        public int TechnicianId { get => Intervention.Technician.UserId; }
+
         public string TechnicianName { get => Intervention.Technician.Lastname + " " + Intervention.Technician.Firstname; }
 
+        public string TechnicianEmail { get => Intervention.Technician.Email; }
+
+        public string TechnicianPhone { get => Intervention.Technician.Phonenumber; }
+
         public string CustomerName { get { return Intervention.Client.Lastname + " " + Intervention.Client.Firstname; } }
+
+        public string CustomerEmail { get => Intervention.Client.Email; }
+
+        public string CustomerPhone { get => Intervention.Client.Phonenumber; }
 
         public Address FacturationAddress { get => Intervention.Client.PrivateAddress; }
 

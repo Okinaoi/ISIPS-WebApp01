@@ -1,0 +1,100 @@
+﻿@using ToolBox.Mappers
+@model IEnumerable<Models.DataModels.User>
+
+
+@{
+    ViewData["Title"] = "AllUsers";
+}
+
+<div class="row">
+    <div class="col">
+        <h1>AllUsers</h1>
+    </div>
+    <div class="col text-right">
+        <a class="btn btn-info" asp-action="addNewUser" title="Add new user"><i class="fas fa-plus"></i></a>
+    </div>
+</div>
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyStatus)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="@item.UserId">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lastname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firstname)
+                    </td>
+                    <td>
+                        @{
+                            string s = item.Email;
+                            <a href=@String.Format("mailto:{0}", s)>@s</a>
+                        }
+                    </td>
+                    <td>
+                        <span>@item.CompanyStatus.ToRole()</span>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "UserEdit", new { id = item.UserId }) |
+                        @Html.ActionLink("Details", "GetUserDetails", new { id = item.UserId }) |
+                        @Html.ActionLink("Delete", "DeleteUser", new { id=item.UserId })                   
+                        <a on onclick="deleteUserInDb(@item.UserId)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{ 
+    <script>
+        let deleteLineInlist = (id) => {
+            let trToRemove = document.getElementById(id);
+            trToRemove.parentNode.removeChild(trToRemove);
+        }
+
+        let ajaxCall = (id) => {
+            $.ajax({
+                    url: "/UserInfo/DeleteUser/" + id,
+                    dataType: "text",
+                    type: "GET",
+                    success: () => {
+                        alertify.success("L'utilisateur à bien été supprimé");
+                        deleteLineInlist(id);
+                    }
+
+                })
+        }
+        let deleteUserInDb = (id) => {
+            alertify.confirm("confirmation", "êtes vous sur de vouloir supprimer cet utilisateur id : ", () => { ajaxCall(id); }, () => { alertify.error("Suppression annulée"); });
+            }
+        
+    
+    </script>
+}
+

@@ -42,13 +42,13 @@ namespace Repository
 
         public Address Update(Address enitity)
         {
-            Command command = new Command("UPDATE Addresses" +
-                                          "SET HouseNumber = @hn" +
-                                              "StreetName = @sn" +
-                                              "City = @city" +
-                                              "PostalCode = @pc" +
-                                              "OUTPUT inserted.*" +
-                                              "WHERE AddressId = @addId");
+            Command command = new Command("UPDATE Addresses " +
+                                          "SET HouseNumber = @hn, " +
+                                              "StreetName = @sn, " +
+                                              "City = @city, " +
+                                              "PostalCode = @pc " +
+                                              "OUTPUT inserted.* " +
+                                              "WHERE AddressId = @addId;");
             command.AddParameter("hn", enitity.HouseNumber);
             command.AddParameter("sn", enitity.StreetName);
             command.AddParameter("city", enitity.City);

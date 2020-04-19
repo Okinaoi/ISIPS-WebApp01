@@ -1,0 +1,99 @@
+﻿@model Models.ViewModels.ClientContractViewModel
+@{
+    ViewData["Title"] = "CreateContract";
+}
+
+<h1>CreateContract</h1>
+<label hidden id="clientPrivateAddressAddressId">@Model.ClientPrivateAddress.AddressId</label>
+<label hidden id="clientPrivateAddressHouseNumber">@Model.ClientPrivateAddress.HouseNumber</label>
+<label hidden id="clientPrivateAddressStreetName">@Model.ClientPrivateAddress.StreetName</label>
+<label hidden id="clientPrivateAddressPostalCode">@Model.ClientPrivateAddress.PostalCode</label>
+<label hidden id="clientPrivateAddressCity">@Model.ClientPrivateAddress.City</label>
+<form asp-action="CreateContract">
+    @*<input hidden asp-for="@Model.ClientPrivateAddress"/>*@
+    <div class="form-group">
+        <label asp-for="ClientDescription">Description du problème</label>
+        <textarea asp-for="ClientDescription" class="form-control">
+
+        </textarea>
+    </div>
+    <hr />
+    <div class="row">          
+        <input id="checkBox" type="checkbox" class="form-control" style="height:20px;width:20px;margin-right:20px;margin-left:20px;" asp-for="InterventionAddressIsClientPrivateAddress" onchange="checkboxCheck()" />
+        <label asp-for="InterventionAddressIsClientPrivateAddress">L'adresse de l'intervention est mon addresse privée</label>      
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col">
+
+            <div class="form-group">
+                <input hidden id="AddressId" asp-for="AddressId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input hidden id="ClientId" asp-for="@Model.ClientId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="HouseNumber" class="control-label"></label>
+                <input id="HouseNumber" asp-for="HouseNumber" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetName" class="control-label"></label>
+                <input id="StreetName" asp-for="StreetName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="envoyer" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+
+            </div>
+            <div class="form-group">
+                <label asp-for="PostalCode" class="control-label"></label>
+                <input id="PostalCode" asp-for="PostalCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input id="City" asp-for="City" class="form-control" />
+            </div>
+            
+        </div>
+    </div>            
+</form>
+
+@section scripts{ 
+    <script>
+        let checkboxCheck = () => {
+            
+            let cb = document.getElementById("checkBox");
+            console.log(cb.checked)
+            if (cb.checked) {
+
+                let trial = document.getElementById("clientPrivateAddressAddressId").innerHTML;
+                document.getElementById("AddressId").value = trial;
+                document.getElementById("HouseNumber").value = document.getElementById("clientPrivateAddressHouseNumber").innerHTML;
+                let trial2 = document.getElementById("clientPrivateAddressStreetName").innerHTML;
+                document.getElementById("StreetName").value = trial2;
+                document.getElementById("PostalCode").value = document.getElementById("clientPrivateAddressPostalCode").innerHTML;
+                document.getElementById("City").value = document.getElementById("clientPrivateAddressCity").innerHTML;
+                document.getElementById('HouseNumber').readOnly = true;
+                document.getElementById('StreetName').readOnly= true;
+                document.getElementById('PostalCode').readOnly = true;
+                document.getElementById('City').readOnly = true;
+            }
+            else {
+                document.getElementById('AddressId').value = "";
+                document.getElementById('HouseNumber').value = "";
+                document.getElementById('StreetName').value = "";
+                document.getElementById('PostalCode').value = "";
+                document.getElementById('City').value = "";
+                document.getElementById('HouseNumber').readOnly = false;
+                document.getElementById('StreetName').readOnly = false;
+                document.getElementById('PostalCode').readOnly = false;
+                document.getElementById('City').readOnly = false;
+            }
+        }
+    </script>
+}
+
+

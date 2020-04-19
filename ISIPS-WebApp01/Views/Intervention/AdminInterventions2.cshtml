@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Models.ViewModels.AdminInterventionViewModel>;
+@using Repository
+@{
+    ViewData["Title"] = "AdminInterventions";
+}
+
+
+
+<p>
+    
+</p>
+<div class="row">
+    <div class="col-6">
+        <h1>Interventions</h1>
+    </div>
+    <div class="col-6">
+        <a class="text-right btn btn-info mb-2" title="Ajouter une nouvelle intervention" asp-action="NewIntervention">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+</div>
+<hr />
+<div class="row">
+    @*<div class="customCardContainer">*@
+        <div class="row table-wrapper-scroll-y">
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        Client infos
+                    </th>
+                    <th>
+                        Technician infos
+                    </th>
+                    <th>
+                        Addresse de Facturation
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </table>
+                @foreach (var intervention in Model)
+                {
+                     <div class="customCard">
+                         <div class="clientInfo">
+                             <div class="row">
+                                 <div class="col-4">
+                                     <p class="text-danger">@intervention.CustomerId</p>
+                                     <p>@intervention.CustomerName</p>
+                                 </div>
+                                 <div class="col-8">
+                                     <p><a href="mailto:@intervention.CustomerEmail">@intervention.CustomerEmail</a></p>
+                                     <p>@intervention.CustomerPhone</p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="clientInfo">
+                             <div class="row">
+                                 
+                             </div>
+                         </div>
+                         <div class="clientInfo">
+                             <span>@intervention.InterventionAddress.HouseNumber, rue @intervention.InterventionAddress.StreetName</span>
+                             <span>@intervention.InterventionAddress.PostalCode, @intervention.InterventionAddress.City</span>
+                         </div>
+                         <div class="clientInfo">
+                             <h3><span class="text-danger">intervention.Price €</span></h3>
+                             <h3 class="text-orange" id="WorkDistance"></h3>
+                         </div>
+                     </div>
+
+                        @*<div class="customCard">
+                            
+                            
+                            <div class="card-25percent">
+                                <div class="cardSectionHeader">
+                                    Adresse de facturation
+                                </div>
+                            </div>
+                            <div class="card-25percent">
+                                <div class="cardSectionHeader">
+                                    Distance avec le technicien
+                                </div>
+                            </div>
+                        </div>*@
+                    
+                }
+        </div>
+    @*</div>*@
+    </div>
+
+@section scripts{ 
+    <script>
+        let updateTechnicianInfo = () => {
+            let currentTech = document.getElementById('techSelection').value;
+            $.ajax({
+                url: 'https://localhost:44345/Intervention/GetTechInfo/' + currentTech,
+                type: 'GET',
+                dataType: 'text',
+                success: (data) => { }
+            });
+        }
+    </script>
+}
+
+

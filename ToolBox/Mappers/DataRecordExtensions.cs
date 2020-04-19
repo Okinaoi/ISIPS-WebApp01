@@ -37,6 +37,7 @@ namespace ToolBox.Mappers
                 u.Phonenumber = dr["PhoneNumber"].ToString();
                 u.Sex = dr["Sex"].ToString();
                 u.PrivateAddress.AddressId = (int)dr["PrivateAddressId"];
+                u.NationalNumber = dr["NationalNumber"].ToString();
                 if (withAddress)
                 {
                     u.PrivateAddress.HouseNumber = (int)dr["HouseNumber"];
@@ -62,6 +63,25 @@ namespace ToolBox.Mappers
                 add.PostalCode = dr["PostalCode"].ToString();
             }
             return add;
+        }
+
+        public static Contract ToContract(this IDataRecord dr)
+        {
+            Contract con = null;
+            
+            if (((DbDataReader)dr).HasRows)
+            {
+                con = new Contract();
+                con.ContractId = (int)dr["ContractId"];
+                con.ContractType = (int)dr["ContractType"];
+                con.Address.AddressId = (int)dr["AddressId"];
+                con.Client.UserId = (int)dr["ClientId"];
+                con.Description = dr["WorkDescription"].ToString();
+                con.IsOnGoing = ((int)dr["IsOnGoing"]).ToBoolean();
+                con.Duration = (int)dr["Duration"];
+                con.InverventionCount = (int)dr["InterventionCount"];
+            }
+            return con;
         }
 
         public static Intervention ToIntervention(this IDataRecord dr)

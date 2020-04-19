@@ -12,22 +12,9 @@ namespace ToolBox.Mappers
             return value == 1 ? true : false;
         }
 
-        public static Role ToRole(this int value)
+        public static string ToRole(this int value)
         {
-            Role role;
-            switch (value)
-            {               
-                case 2:
-                    role = Role.Technician;
-                    break;
-                case 3:
-                    role = Role.Admin;
-                    break;
-                default:
-                    role = Role.Client;
-                    break;
-            }
-            return role;
+            return ((Role)value).ToString();
         }
     }
 }
