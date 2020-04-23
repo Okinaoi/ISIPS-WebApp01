@@ -12,6 +12,12 @@ a {
     color: #0366d6;
 }
 
+.customDisplay{
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 15px;
+}
+
 .customCard {
     display : flex;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

@@ -16,7 +16,9 @@ namespace ISIPS_WebApp01.Controllers
     public class InterventionController : Controller
     {
         ISpecificRepository<Intervention> repo = new InterventionRepository();
+        IRepository<Intervention> interventions = new InterventionRepository();
         IRepository<User> users = new UserRepository();
+        IRepository<Contract> contracts = new ContractRepository();
         public IActionResult TechnicianInterventions()
         {
             if (HttpContext.Session.GetInt32("sessionCompanyStatus") != null)
@@ -50,6 +52,18 @@ namespace ISIPS_WebApp01.Controllers
 
         }
 
+        public IActionResult AddInterventionToContract(int contractId)
+        {
+            Intervention inter = new Intervention(contractId);
+            Contract contr = contracts.Select(contractId);
+            inter.InterventionAddress = Services.GetAdressFromContract(contractId);
+            inter.Client = users.Select(contr.Client.UserId);
+            AdminInterventionViewModel interVm = new AdminInterventionViewModel(inter);
+            interVm.ContractDescription = contr.Description;
+            interVm.ContractId = contr.ContractId;
+            return View("addNewIntervention", interVm);
+        }
+
         public IActionResult addNewIntervention()
         {
             return View();
@@ -58,7 +72,9 @@ namespace ISIPS_WebApp01.Controllers
         [HttpPost]
         public IActionResult addNewIntervention(AdminInterventionViewModel intervention)
         {
-            return View();
+            interventions.Insert(intervention.GetIntervention);
+            ViewBag.message = $"Une nouvelle intervention à bien été ajoutée au contrat (id: {intervention.ContractId}) pour le client : {intervention.CustomerName} (id: {intervention.CustomerId})";
+            return View("~/Views/Contract/OnGoingContracts.cshtml");
         }
 
         [ActionName("GetTechInfo")]

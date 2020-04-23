@@ -7,6 +7,14 @@ namespace Models.DataModels
 {
     public class Intervention
     {
+        public Intervention()
+        {
+
+        }
+        public Intervention(int contractId)
+        {
+            ContractId = contractId;
+        }
         public int InterventionId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -17,5 +25,6 @@ namespace Models.DataModels
         public Address InterventionAddress { get; set; } = new Address();
         public User Technician { get; set; } = new User();
         public User Client { get; set; } = new User();
+        public int ContractId { get; set; }
     }
 }

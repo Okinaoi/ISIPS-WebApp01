@@ -97,6 +97,7 @@ namespace ToolBox.Mappers
                 inter.Duration = (int)dr["Duration"];
                 inter.IsOnGoing = ((int)dr["IsOnGoing"]).ToBoolean();
                 inter.Description = dr["WorkDescription"].ToString();
+                inter.ContractId = (int)dr["ContractId"];
                 inter.Technician.UserId = (int)dr["tech_UserId"];
                 inter.Technician.Firstname = dr["tech_Firstname"].ToString();
                 inter.Technician.Lastname = dr["tech_Lastname"].ToString();
@@ -130,6 +131,24 @@ namespace ToolBox.Mappers
                 inter.InterventionAddress.StreetName = dr["inter_StreetName"].ToString();
                 inter.InterventionAddress.HouseNumber = (int)dr["inter_HouseNumber"];
                 inter.InterventionAddress.PostalCode = dr["inter_PostalCode"].ToString();
+            }
+            return inter;
+        }
+
+        public static Intervention ToInterventionReduced(this IDataRecord dr)
+        {
+            Intervention inter = null;
+            if (((DbDataReader)dr).HasRows)
+            {
+                inter = new Intervention();
+                inter.InterventionId = (int)dr["InterventionId"];
+                inter.Price = (double)dr["Price"];
+                inter.StartDate = (DateTime)dr["StartDate"];
+                inter.EndDate = (DateTime)dr["EndDate"];
+                inter.Duration = (int)dr["Duration"];
+                inter.IsOnGoing = ((int)dr["IsOnGoing"]).ToBoolean();
+                inter.Description = dr["WorkDescription"].ToString();
+                inter.ContractId = (int)dr["ContractId"];
             }
             return inter;
         }

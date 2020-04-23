@@ -33,12 +33,16 @@ namespace Repository
 
         public IEnumerable<Contract> Select()
         {
-            throw new NotImplementedException();
+            Command command = new Command("SELECT * FROM ClientContract");
+            return conn.ExecuteReader(command, dr => dr.ToContract());
         }
+                                          
 
         public Contract Select(int id)
         {
-            throw new NotImplementedException();
+            Command command = new Command("SELECT * FROM ClientContract WHERE ContractId  = @id");
+            command.AddParameter("id", id);
+            return conn.ExecuteReaderSingle(command, dr => dr.ToContract());
         }
 
         public Contract Update(Contract enitity)

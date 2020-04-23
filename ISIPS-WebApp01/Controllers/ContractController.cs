@@ -16,9 +16,10 @@ namespace ISIPS_WebApp01.Controllers
         IRepository<Contract> contracts = new ContractRepository();
         IRepository<Address> addresses = new AddressRepository();
 
-        public IActionResult AllContracts()
+        public IActionResult OnGoingContracts()
         {
-            return View();
+            IEnumerable<Contract> contracts = Services.GetOnGoingContracts();
+            return View(contracts);
         }
 
         public IActionResult CreateContract()
@@ -37,6 +38,18 @@ namespace ISIPS_WebApp01.Controllers
             }
             return View("Index", "Home");
             
+        }
+
+        public IActionResult EditPendingContract(int id)
+        {
+            Contract con = contracts.Select(id);
+            return View(con);
+        }
+
+        public IActionResult PendingContracts()
+        {
+            IEnumerable<Contract> pendingContracts = Services.GetPendingContracts();
+            return View(pendingContracts);
         }
 
         [HttpPost]

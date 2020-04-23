@@ -1,0 +1,67 @@
+﻿@model Models.ViewModels.ContractAndInterventionsViewModel
+
+@{
+    ViewData["Title"] = "EditPendingContract";
+}
+
+<h1>EditPendingContract</h1>
+
+<h4>Contract</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPendingContract">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Contract.ContractId" class="control-label"></label>
+                <input hidden asp-for="Contract.ContractId" class="control-label"></input>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contract.ContractType" class="control-label"></label>
+                <input asp-for="Contract.ContractType" class="form-control" />
+                <span asp-validation-for="Contract.ContractType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contract.StartDate" class="control-label"></label>
+                <input asp-for="Contract.StartDate" class="form-control" />
+                <span asp-validation-for="Contract.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contract.EndDate" class="control-label"></label>
+                <input asp-for="Contract.EndDate" class="form-control" />
+                <span asp-validation-for="Contract.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contract.Description" class="control-label"></label>
+                <input asp-for="Contract.Description" class="form-control" />
+                <span asp-validation-for="Contract.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contract.Duration" class="control-label"></label>
+                <input asp-for="Contract.Duration" class="form-control" />
+                <span asp-validation-for="Contract.Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contract.InverventionCount" class="control-label"></label>
+                <input asp-for="Contract.InverventionCount" class="form-control" />
+                <span asp-validation-for="Contract.InverventionCount" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Contract.IsOnGoing" /> @Html.DisplayNameFor(model => model.Contract.IsOnGoing)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

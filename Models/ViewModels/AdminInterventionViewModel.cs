@@ -7,8 +7,12 @@ namespace Models.ViewModels
 {
     public class AdminInterventionViewModel
     {
-        private Intervention Intervention;
+        private Intervention Intervention = new Intervention();
 
+        public AdminInterventionViewModel()
+        {
+            
+        }
         public AdminInterventionViewModel(Intervention inter)
         {
             Intervention = inter;
@@ -17,6 +21,15 @@ namespace Models.ViewModels
         public int InterventionId { get => Intervention.InterventionId; }
 
         public int CustomerId { get => Intervention.Client.UserId; }
+
+        private string _ContractDescription;
+
+        public string ContractDescription
+        {
+            get { return _ContractDescription; }
+            set { _ContractDescription = value; }
+        }
+
 
         public DateTime StartDate
         {
@@ -42,12 +55,6 @@ namespace Models.ViewModels
             set { Intervention.Duration = value; }
         }
 
-        public string Description
-        {
-            get { return Intervention.Description; }
-            set { Intervention.Description = value; }
-        }
-
         public double Price
         {
             get { return Intervention.Price; }
@@ -60,7 +67,9 @@ namespace Models.ViewModels
             set { Intervention.IsOnGoing = value; }
         }
 
-        public int TechnicianId { get => Intervention.Technician.UserId; }
+        public int ContractId { get => Intervention.ContractId; set => Intervention.ContractId = value; }
+
+        public int TechnicianId { get => Intervention.Technician.UserId; set => Intervention.Technician.UserId = value; }
 
         public string TechnicianName { get => Intervention.Technician.Lastname + " " + Intervention.Technician.Firstname; }
 
@@ -68,17 +77,22 @@ namespace Models.ViewModels
 
         public string TechnicianPhone { get => Intervention.Technician.Phonenumber; }
 
+
         public string CustomerName { get { return Intervention.Client.Lastname + " " + Intervention.Client.Firstname; } }
 
         public string CustomerEmail { get => Intervention.Client.Email; }
 
         public string CustomerPhone { get => Intervention.Client.Phonenumber; }
 
-        public Address FacturationAddress { get => Intervention.Client.PrivateAddress; }
+        public string FacturationAddress { get => $"{Intervention.Client.PrivateAddress.HouseNumber}, rue {Intervention.Client.PrivateAddress.StreetName} {Intervention.Client.PrivateAddress.PostalCode} {Intervention.Client.PrivateAddress.City}"; }
 
         public Address TechnicianAddress { get => Intervention.Technician.PrivateAddress; }
 
-        public Address InterventionAddress { get { return Intervention.InterventionAddress; } }
+        public string InterventionAddress { get { return $"{Intervention.InterventionAddress.HouseNumber}, " +
+                    $"rue {Intervention.InterventionAddress.StreetName} {Intervention.InterventionAddress.PostalCode} " +
+                    $"{Intervention.InterventionAddress.City}"; } }
+
+        public Intervention GetIntervention { get => Intervention; }
 
     }
 }
