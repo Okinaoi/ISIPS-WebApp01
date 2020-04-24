@@ -5,14 +5,14 @@
     ViewData["Title"] = "addNewIntervention";
 }
 
-<h1 class="text-info">Nouvelle Intervention</h1>
+<h1 class="text-green">Nouvelle Intervention</h1>
 <label hidden id="clientPrivateAddressAddressId"></label>
 <label hidden id="clientPrivateAddressHouseNumber"></label>
 <label hidden id="clientPrivateAddressStreetName"></label>
 <label hidden id="clientPrivateAddressPostalCode"></label>
 <label hidden id="clientPrivateAddressCity"></label>
-<hr />
-<h3 class="text-info mb-2">Informations client</h3>
+@*<hr />*@
+<h3 class="text-green mb-2">Informations client</h3>
 <div class="customDisplay">
     <div class="col">
         <dl class="row">
@@ -64,11 +64,11 @@
     </div>
 
 </div>
-<h3 class="text-info mb-2 mt-5">Description du problème par le client</h3>
+<h3 class="text-green mb-2 mt-5">Description du problème par le client</h3>
 <div class="customDisplay">
     <h5>@Html.DisplayFor(model => model.ContractDescription)</h5>
 </div>
-<h3 class="text-info mb-2 mt-5">Choix du technicien</h3>
+<h3 class="text-green mb-2 mt-5">Choix du technicien</h3>
 <form asp-action="addNewIntervention">
     <div class="customDisplay">
         <input hidden asp-for="ContractId"/>

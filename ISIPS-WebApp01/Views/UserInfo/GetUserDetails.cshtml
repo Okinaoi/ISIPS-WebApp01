@@ -4,11 +4,10 @@
     ViewData["Title"] = "GetUserDetails";
 }
 
-<h1>GetUserDetails</h1>
-
+<h1 class="text-green">Profile de @Model.Lastname @Model.Firstname</h1>
+<hr />
 <div>
-    <h4>User</h4>
-    <hr />
+    
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.UserId)

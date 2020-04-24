@@ -67,8 +67,42 @@ a {
     width: 25%;
 }
 
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top:none!important;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    -webkit-box-shadow: inset 0 0 6px #57b846;
+}
+
+.yScrollContainer {
+    overflow-y: scroll;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+    height: 70%;
+    width: 100%;
+}
+
 .text-orange{
     color : orange;
+}
+
+.text-green {
+    color: #57b846;
 }
 
 .cardClientPart {
