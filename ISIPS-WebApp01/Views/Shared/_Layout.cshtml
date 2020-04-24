@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/all.min.css" rel="stylesheet" />
     <link href="~/css/main.css" rel="stylesheet" />
-    <link href="~/css/alertify.min.css" rel="stylesheet"/>
-    <link href="~/css/alertify.rtl.min.css"/>
+    <link href="~/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/css/alertify.rtl.min.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="height:60px">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ISIPS_WebApp01</a>
+                <a style="font-size:30px; border-right: 1px solid black; padding-right:20px" class="text-left" asp-area="" asp-controller="Home" asp-action="Index">Marco Le Tuyaux</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,67 +26,89 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Identity" asp-action="Register">Register</a>
-                        </li>
-                        @if (Context.Session.GetInt32("sessionId") == null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-success" asp-area="" asp-controller="Identity" asp-action="Login">Log in</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-danger" asp-area="" asp-controller="Identity" asp-action="Logout">Log out</a>
-                            </li>
-                        }
-                        @if (Context.Session.GetInt32("sessionCompanyStatus") == 1 || Context.Session.GetInt32("sessionCompanyStatus") == 2)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-danger" asp-area="" asp-controller="Contract" asp-action="CreateContract">Demande d'intervention</a>
-                            </li>
-                        }
-                        @if (Context.Session.GetInt32("sessionCompanyStatus") == 3)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="UserInfo" asp-action="AllUsers">Utilisateurs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Contract" asp-action="PendingContracts">Demande de devis</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Contract" asp-action="PendingContracts">Contrats en cours</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
-                        </li>
+                        <div class="container">
+                            @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>*@
+                            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item dropdown text-white-50">
+                                        @if (Context.Session.GetInt32("sessionId") != null)
+                                        {
+                                            <a class="dropdown-toggle" style="font-size:30px;" href="#" id="navBarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tasks"></i> Management</a>
 
+                                        }
+                                        <div class="dropdown-menu" aria-labelledby="navVarDropdownMenuLink">
+
+                                            @if (Context.Session.GetInt32("sessionCompanyStatus") == 1 || Context.Session.GetInt32("sessionCompanyStatus") == 2)
+                                            {
+                                                <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="CreateContract">Utilisateurs</a>
+                                            }
+                                            @if (Context.Session.GetInt32("sessionCompanyStatus") == 3)
+                                            {
+                                                <a class="dropdown-item" asp-area="" asp-controller="UserInfo" asp-action="AllUsers">Utilisateurs</a>
+                                                <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="PendingContracts">Demandes clients</a>
+                                                <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="OnGoingContracts">Contrats</a>
+                                            }
+
+                                        
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item dropdown text-white-50">
+                                        <a style="font-size:30px;" href="#" id="navBarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle icon-2x"></i></a>
+                                        <div class="dropdown-menu" aria-labelledby="navVarDropdownMenuLink">
+
+                                            <a class="dropdown-item" asp-area="" asp-controller="Identity" asp-action="Register">Register</a>
+                                            @if (Context.Session.GetInt32("sessionId") == null)
+                                            {
+
+                                                <a class="dropdown-item" asp-area="" asp-controller="Identity" asp-action="Login">Log in</a>
+
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
+                                                <a class="dropdown-item" asp-area="" asp-controller="Identity" asp-action="Logout">Log out</a>
+
+                                            }
+
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        </div>
 
                     </ul>
-                </div>
+                    </div>
+                    </div>
+                </nav>
+            </header>
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - ISIPS_WebApp01 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/all.min.js"></script>
-    <script src="~/js/alertify.min.js"></script>
-    @RenderSection("Scripts", required: false)
-</body>
-</html>
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2020 - ISIPS_WebApp01 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="~/js/all.min.js"></script>
+            <script src="~/js/alertify.min.js"></script>
+            @RenderSection("Scripts", required: false)
+        </body>
+    </html>

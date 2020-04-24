@@ -1,19 +1,15 @@
 ﻿@model IEnumerable<Models.DataModels.Contract>
 
 @{
-    ViewData["Title"] = "Contracts";
+    ViewData["Title"] = "PendingContracts";
 }
 
-<div class="row">
-    <div class="col">
-        <h1>AllUsers</h1>
-    </div>
-    <div class="col text-right">
-        <a class="btn btn-info" asp-action="addNewUser" title="Add new user"><i class="fas fa-plus"></i></a>
-    </div>
-</div>
+<h1 class="text-info">Contrats</h1>
 
-<div class="row">
+
+@if (Model.Count() > 0)
+{
+
     <table class="table">
         <thead>
             <tr>
@@ -21,13 +17,16 @@
                     @Html.DisplayNameFor(model => model.ContractId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Client.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Client.Lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Client.Firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th></th>
             </tr>
@@ -35,42 +34,33 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr id="@item.ContractId">
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ContractId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StartDate.Date)
+                        @Html.DisplayFor(model => item.Client.UserId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.EndDate.Date)
+                        @Html.DisplayFor(model => item.Client.Lastname)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Client.UserId);
+                        @Html.DisplayFor(model => item.Client.Firstname)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "UserEdit", new { id = item.ContractId }) |
-                        @Html.ActionLink("Details", "GetUserDetails", new { id = item.ContractId }) |
-                        @Html.ActionLink("Delete", "DeleteUser", new { id = item.ContractId })
-                        
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "AddInterventionToContract", "Intervention", new { contractId = item.ContractId })
+                        @Html.ActionLink("Details", "AddInterventionToContract", "Intervention", new { contractId = item.ContractId })
+                        @Html.ActionLink("Delete", "AddInterventionToContract", "Intervention", new { contractId = item.ContractId })
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-</div>
-
-<h1>OnGoingContracts</h1>
-
-@section scripts{
-    <script>
-        let onStart = () => {
-            let mess = @ViewBag.message;
-            if (mess != '') {
-                alertify.success(@ViewBag.message)
-            }
-
-        };
-        $(document).ready(onStart);
-    </script>
+}
+else
+{
+    <span class="text-center">Il n'y actuellement aucune demande de client non traitée</span>
 }

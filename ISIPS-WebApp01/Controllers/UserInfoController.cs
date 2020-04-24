@@ -27,6 +27,16 @@ namespace ISIPS_WebApp01.Controllers
             
         }
 
+        public IActionResult addNewUser()
+        {
+            string sessionStatus = ((int)HttpContext.Session.GetInt32("sessionCompanyStatus")).ToRole();
+            if (sessionStatus == (Role.Admin).ToString())
+            {
+                return View();
+            }
+            return Unauthorized();
+        }
+
         [HttpPost]
         public IActionResult addNewUser(AddNewUserViewModel addedUser)
         {

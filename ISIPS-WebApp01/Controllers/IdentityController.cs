@@ -58,7 +58,8 @@ namespace ISIPS_WebApp01.Controllers
                 HttpContext.Session.SetInt32("sessionId", sessionInfo.UserId);
                 HttpContext.Session.SetString("sessionFirstname", sessionInfo.Firstname);
                 HttpContext.Session.SetInt32("sessionCompanyStatus", sessionInfo.Status);
-                return RedirectToAction("Index", "Home");
+                ViewBag.message = $"Bienvenue {sessionInfo.Firstname}";
+                return View("~/Views/Home/Index.cshtml");
             }
             return RedirectToAction(nameof(Login));
         }

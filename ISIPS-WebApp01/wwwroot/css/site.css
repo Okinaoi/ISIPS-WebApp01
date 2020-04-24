@@ -98,6 +98,7 @@ a {
 
 .customContainer {
     margin: auto;
+    margin-top: 100px;
     /*position : absolute;*/
     display: flex;
     border: 1px hidden black;
@@ -177,7 +178,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background: url("C:/Users/nicuv/source/repos/ISIPS-REPAIRAPP-EF-MOCKUP/ISIPS-REPAIRAPP-EF-MOCKUP/bgImg.jpg");
+    
 }
 
 .footer {

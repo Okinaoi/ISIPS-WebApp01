@@ -1,9 +1,21 @@
-﻿@model string
+﻿
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <h2 class="text-danger">@Model</h2>
 </div>
+@section scripts{
+    <script>
+        $(document).ready(() => { alertMe() });
+        let alertMe = () => {
+            let mess = '@ViewBag.message';
+            console.log(mess);
+            if (mess != '') {
+                alertify.success(mess);
+            }
+
+        };
+    </script>
+}

@@ -65,12 +65,14 @@ namespace ToolBox.Mappers
             return add;
         }
 
-        public static Contract ToContract(this IDataRecord dr)
+
+        public static Contract ToContract(this IDataRecord dr, bool withUser = false)
         {
             Contract con = null;
             
             if (((DbDataReader)dr).HasRows)
             {
+
                 con = new Contract();
                 con.ContractId = (int)dr["ContractId"];
                 con.ContractType = (int)dr["ContractType"];
@@ -80,6 +82,12 @@ namespace ToolBox.Mappers
                 con.IsOnGoing = ((int)dr["IsOnGoing"]).ToBoolean();
                 con.Duration = (int)dr["Duration"];
                 con.InverventionCount = (int)dr["InterventionCount"];
+                if (withUser)
+                {
+                    con.Client.UserId = (int)dr["UserId"];
+                    con.Client.Firstname = dr["Firstname"].ToString();
+                    con.Client.Lastname = dr["Lastname"].ToString();
+                }
             }
             return con;
         }

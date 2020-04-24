@@ -58,27 +58,20 @@ namespace Repository
             return conn.ExecuteReader(command, dr => dr.ToUser());
         }
 
-        public static IEnumerable<Contract> GetPendingContracts(int id)
-        {
-            //fct qui return la liste des demandes de contrats de la part des clients
-            Command command = new Command("SELECT * FROM ClientContract WHERE ContractId NOT IN (SELECT ContractId FROM Interventions)");
-            return conn.ExecuteReader(command, dr => dr.ToContract());
-        }
-
-
         public static IEnumerable<Contract> GetPendingContracts()
         {
             //fct qui return la liste des demandes de contrats de la part des clients
-            Command command = new Command("SELECT * FROM ClientContract WHERE ContractId NOT IN (SELECT ContractId FROM Interventions)");
-            return conn.ExecuteReader(command, dr => dr.ToContract());
+            Command command = new Command("SELECT CC.*, U.UserId, U.LastName, U.FirstName FROM ClientContract CC JOIN Users U ON U.UserId = CC.ClientId WHERE CC.ContractId NOT IN (SELECT ContractId FROM Interventions)");
+            return conn.ExecuteReader(command, dr => dr.ToContract(withUser:true));
         }
 
         public static IEnumerable<Contract> GetOnGoingContracts()
         {
             //fct qui nous donne la liste des contrats en cours (pas les demande de contrat)
-            Command command = new Command("SELECT CC.* FROM ClientContract CC " +
-                                          "RIGHT JOIN Interventions I ON I.ContractId = CC.ContractId");
-            return conn.ExecuteReader(command, dr => dr.ToContract());
+            Command command = new Command("SELECT CC.*, U.UserId, U.LastName, U.FirstName FROM ClientContract CC " +
+                                          "RIGHT JOIN Interventions I ON I.ContractId = CC.ContractId " +
+                                          "JOIN Users U ON U.UserId = CC.ClientId");
+            return conn.ExecuteReader(command, dr => dr.ToContract(withUser:true));
         }
 
         public static bool UserExist(int id)

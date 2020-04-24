@@ -4,9 +4,8 @@
     ViewData["Title"] = "Profile";
 }
 
-<h1>Profile</h1>
+<h1 class="text-info">Mon Profile</h1>
 <div>
-    <h4>User</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -86,7 +85,6 @@
     <script>
         let alertifyHandler = () => {
             let mess = '@ViewBag.message';
-            console.log(mess);
             if (mess != '') {
                 alertify.success(mess);
             }

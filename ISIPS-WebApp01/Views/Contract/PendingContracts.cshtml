@@ -4,14 +4,12 @@
     ViewData["Title"] = "PendingContracts";
 }
 
-<h1>PendingContracts</h1>
+<h1 class="text-info">Demandes d'interventions</h1>
 
 
 @if (Model.Count() > 0)
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    
     <table class="table">
         <thead>
             <tr>
@@ -19,25 +17,16 @@
                     @Html.DisplayNameFor(model => model.ContractId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ContractType)
+                    @Html.DisplayNameFor(model => model.Client.UserId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
+                    @Html.DisplayNameFor(model => model.Client.Lastname)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EndDate)
+                    @Html.DisplayNameFor(model => model.Client.Firstname)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Duration)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InverventionCount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsOnGoing)
                 </th>
                 <th></th>
             </tr>
@@ -50,29 +39,18 @@
                     @Html.DisplayFor(modelItem => item.ContractId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ContractType)
+                    @Html.DisplayFor(model => item.Client.UserId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
+                    @Html.DisplayFor(model => item.Client.Lastname)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @Html.DisplayFor(model => item.Client.Firstname)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Duration)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InverventionCount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsOnGoing)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditPendingContract", new { contractId = item.ContractId }) |
-                    @Html.ActionLink("Details", "Details", new { contractId = item.ContractId }) |
                     @Html.ActionLink("Ajouter intervention", "AddInterventionToContract", "Intervention", new { contractId = item.ContractId })
                 </td>
             </tr>
