@@ -55,7 +55,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.InterventionId)
+                @Html.DisplayFor(model => item.InterventionId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TechnicianId)
@@ -82,10 +82,11 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId })  
+                @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId }) 
+                <a asp-action="Details" asp-route-id="@item.InterventionId"></a>
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.InterventionId }) 
+                @Html.ActionLink("Details", "Details", new { interventionId = item.InterventionId }) 
             </td>
             <td>
                 @Html.ActionLink("Delete", "Delete", new { id = item.InterventionId })

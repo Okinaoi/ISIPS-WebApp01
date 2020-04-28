@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -13,12 +14,14 @@ using ToolBox.Mappers;
 
 namespace ISIPS_WebApp01.Controllers
 {
+    
     public class InterventionController : Controller
     {
         ISpecificRepository<Intervention> repo = new InterventionRepository();
         IRepository<Intervention> interventions = new InterventionRepository();
         IRepository<User> users = new UserRepository();
         IRepository<Contract> contracts = new ContractRepository();
+
         public IActionResult TechnicianInterventions()
         {
             if (HttpContext.Session.GetInt32("sessionCompanyStatus") != null)
@@ -77,23 +80,30 @@ namespace ISIPS_WebApp01.Controllers
             return View("~/Views/Contract/OnGoingContracts.cshtml");
         }
 
-        [ActionName("GetTechInfo")]
-        public async Task<IActionResult> GetTechInfo(int id)
+        public IActionResult Details(int interventionId)
         {
-            User tech = users.Select(id);
-            string Url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=";
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Url);
-            return Json(new { });
+            Intervention inter = interventions.Select(interventionId); // va chercher l'objet en db
+            AdminInterventionViewModel vm = new AdminInterventionViewModel(inter); // met l'objet dans mon view model
+            return View(vm); // creer une vue dynamiquement grace a l'objet qu'on injecte dedan
         }
 
-        [ActionName("GetCustomerAddress")] 
-        public async Task<IActionResult> GetCustomerAddress(int id)
-        {
+        //[ActionName("GetTechInfo")]
+        //public async Task<IActionResult> GetTechInfo(int id)
+        //{
+        //    User tech = users.Select(id);
+        //    string Url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=";
+        //    HttpClient client = new HttpClient();
+        //    client.BaseAddress = new Uri(Url);
+        //    return Json(new { });
+        //}
 
-            User customer = users.Select(id);
-            Address customerAddress = customer.PrivateAddress;
-            return Json(customerAddress);
-        }
+        //[ActionName("GetCustomerAddress")] 
+        //public async Task<IActionResult> GetCustomerAddress(int id)
+        //{
+
+        //    User customer = users.Select(id);
+        //    Address customerAddress = customer.PrivateAddress;
+        //    return Json(customerAddress);
+        //}
     }
 }

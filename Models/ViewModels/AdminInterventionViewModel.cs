@@ -1,4 +1,5 @@
-﻿using Models.DataModels;
+﻿
+using Models.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Models.ViewModels
             Intervention = inter;
         }
 
-        public int InterventionId { get => Intervention.InterventionId; }
+        public int InterventionId { get => Intervention.InterventionId; set => Intervention.InterventionId = value; }
 
         public int CustomerId { get => Intervention.Client.UserId; }
 
@@ -79,6 +80,7 @@ namespace Models.ViewModels
 
 
         public string CustomerName { get { return Intervention.Client.Lastname + " " + Intervention.Client.Firstname; } }
+
 
         public string CustomerEmail { get => Intervention.Client.Email; }
 

@@ -58,6 +58,33 @@ namespace Repository
             return conn.ExecuteReader(command, dr => dr.ToUser());
         }
 
+        public static IEnumerable<Intervention> GetInterventionsFromContractId(int id)
+        {
+            Command command = new Command("SELECT I.* , W.UserId as tech_UserId, W.Firstname as tech_Firstname," +
+                                          "W.Lastname as tech_Lastname, W.Email as tech_Email, W.BirthDate as tech_BirthDate," +
+                                          "W.CompanyStatus as tech_CompanyStatus, W.NationalNumber as tech_NationalNumber," +
+                                          "W.Phonenumber as tech_PhoneNumber, W.Sex as tech_Sex," +
+                                          "WA.AddressId as tech_AddressId, WA.HouseNumber as tech_HouseNumber," +
+                                          "WA.StreetName as tech_StreetName, WA.City as tech_City, WA.PostalCode as tech_PostalCode," +
+                                          "C.UserId as client_UserId, C.Firstname as client_Firstname, C.Lastname as client_Lastname, C.BirthDate as client_BirthDate," +
+                                          "C.Email as client_Email, C.CompanyStatus as client_CompanyStatus, C.NationalNumber as client_NationalNumber," +
+                                          "C.Phonenumber as client_PhoneNumber, C.Sex as client_Sex, CA.AddressId as client_AddressId," +
+                                          "CA.HouseNumber as client_HouseNumber, CA.StreetName as client_StreetName," +
+                                          "CA.City as client_City, CA.PostalCode as client_PostalCode," +
+                                          "A.AddressId as inter_AddressId, A.HouseNumber as inter_HouseNumber," +
+                                          "A.StreetName as inter_StreetName, A.City as inter_City, A.PostalCode as inter_PostalCode " +
+                                          "FROM Interventions I " +
+                                          "JOIN ClientContract CC ON CC.ContractId = I.ContractId " +
+                                          "JOIN Users W ON W.UserId = I.WorkerId " +
+                                          "JOIN Users C ON C.UserId = CC.ClientId " +
+                                          "JOIN Addresses CA ON CA.AddressId = C.PrivateAddressId " +
+                                          "JOIN Addresses WA ON WA.AddressId = W.PrivateAddressId " +
+                                          "JOIN Addresses A ON A.AddressId = CC.AddressId " +
+                                          "WHERE I.ContractId = @id");
+            command.AddParameter("id", id);
+            return conn.ExecuteReader(command, dr => dr.ToIntervention());
+        }
+
         public static IEnumerable<Contract> GetPendingContracts()
         {
             //fct qui return la liste des demandes de contrats de la part des clients
