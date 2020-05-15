@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 
 namespace ToolBox.Mappers
@@ -82,6 +83,7 @@ namespace ToolBox.Mappers
                 con.IsOnGoing = ((int)dr["IsOnGoing"]).ToBoolean();
                 con.Duration = (int)dr["Duration"];
                 con.InverventionCount = (int)dr["InterventionCount"];
+                con.Interventions = Services.GetInterventionsFromContractId(con.ContractId).ToList();
                 if (withUser)
                 {
                     con.Client.UserId = (int)dr["UserId"];

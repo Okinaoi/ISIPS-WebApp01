@@ -9,7 +9,7 @@ using ToolBox.DataBaseConnectionTools;
 using ToolBox.Mappers;
 
 
-namespace Repository
+namespace ToolBox
 {
     public static class Services
     {
@@ -96,7 +96,7 @@ namespace Repository
         public static IEnumerable<Contract> GetOnGoingContracts()
         {
             //fct qui nous donne la liste des contrats en cours (pas les demande de contrat)
-            Command command = new Command("SELECT DISTINCT CC.*, U.UserId, U.LastName, U.FirstName FROM ClientContract CC " +
+            Command command = new Command("SELECT CC.*, U.UserId, U.LastName, U.FirstName FROM ClientContract CC " +
                                           "RIGHT JOIN Interventions I ON I.ContractId = CC.ContractId " +
                                           "JOIN Users U ON U.UserId = CC.ClientId");
             return conn.ExecuteReader(command, dr => dr.ToContract(withUser:true));

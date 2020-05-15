@@ -1,0 +1,54 @@
+﻿@model Models.ViewModels.AdminInterventionViewModel
+@using ToolBox
+
+
+@{
+    ViewData["Title"] = "EditPendingContract";
+}
+
+<h1 class="text-green">Modifier l'intervention</h1>
+<hr />
+<form asp-action="AdminEdit">
+    <div class="customDisplay">
+        <input hidden asp-for="ContractId" />
+        <input hidden asp-for="InterventionId"/>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="TechnicianName" class="control-label"></label>
+                    <select id="techSelection" class="form-control" onchange="updateTechId()" asp-for="TechnicianId" asp-items="Services.GetTechnicians().Select(x=> new SelectListItem { Text = x.Lastname +' ' + x.Firstname, Value = x.UserId.ToString() })"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group mt-3">
+        <input type="submit" class="btn btn-success" value="Update" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+

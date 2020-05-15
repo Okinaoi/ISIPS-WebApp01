@@ -22,6 +22,25 @@ namespace ISIPS_WebApp01.Controllers
         IRepository<User> users = new UserRepository();
         IRepository<Contract> contracts = new ContractRepository();
 
+        public IActionResult AdminDetails(int id)
+        {
+            Intervention intervention = interventions.Select(id);
+            AdminInterventionViewModel vm = new AdminInterventionViewModel(intervention);
+            return View(vm);
+        }
+
+        public IActionResult InterventionsFromContractForAdmin(int id)
+        {
+            List<AdminInterventionViewModel> vm = Services.GetInterventionsFromContractId(id).ToList().ToListAdminInterventionVm().ToList();
+            return View(vm);
+        }
+
+        public IActionResult InterventionsFromContractForClient(int id)
+        {
+            List<AdminInterventionViewModel> vm = Services.GetInterventionsFromContractId(id).ToList().ToListAdminInterventionVm().ToList();
+            return View(vm);
+        }
+
         public IActionResult TechnicianInterventions()
         {
             if (HttpContext.Session.GetInt32("sessionCompanyStatus") != null)
@@ -67,6 +86,19 @@ namespace ISIPS_WebApp01.Controllers
             return View("addNewIntervention", interVm);
         }
 
+        public IActionResult AdminUpdateContractAddIntervention(int contractId)
+        {
+            Intervention inter = new Intervention(contractId);
+            Contract contr = contracts.Select(contractId);
+            inter.InterventionAddress = Services.GetAdressFromContract(contractId);
+            inter.Client = users.Select(contr.Client.UserId);
+            AdminInterventionViewModel interVm = new AdminInterventionViewModel(inter);
+            interVm.ContractDescription = contr.Description;
+            interVm.ContractId = contr.ContractId;
+            interventions.Insert(interVm.GetIntervention);
+            return RedirectToAction(nameof(InterventionsFromContractForAdmin), new { id = contractId});
+        }
+
         public IActionResult addNewIntervention()
         {
             return View();
@@ -76,34 +108,47 @@ namespace ISIPS_WebApp01.Controllers
         public IActionResult addNewIntervention(AdminInterventionViewModel intervention)
         {
             interventions.Insert(intervention.GetIntervention);
-            ViewBag.message = $"Une nouvelle intervention à bien été ajoutée au contrat (id: {intervention.ContractId}) pour le client : {intervention.CustomerName} (id: {intervention.CustomerId})";
-            return View("~/Views/Contract/OnGoingContracts.cshtml");
+            return RedirectToAction(nameof(InterventionsFromContractForAdmin), new { id = intervention.ContractId });
+            //ViewBag.message = $"Une nouvelle intervention à bien été ajoutée au contrat (id: {intervention.ContractId}) pour le client : {intervention.CustomerName} (id: {intervention.CustomerId})";
+            //return View("~/Views/Contract/OnGoingContracts.cshtml");
         }
 
-        public IActionResult Details(int interventionId)
+        public IActionResult Edit(int id)
         {
-            Intervention inter = interventions.Select(interventionId); // va chercher l'objet en db
+            Intervention inter = interventions.Select(id); // va chercher l'objet en db
+            AdminInterventionViewModel vm = new AdminInterventionViewModel(inter);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(AdminInterventionViewModel vm)
+        {
+            Intervention inter = vm.GetIntervention;
+            interventions.Update(inter);
+            return RedirectToAction(nameof(TechnicianInterventions));
+        }
+
+        [HttpPost]
+        public IActionResult AdminEdit(AdminInterventionViewModel vm)
+        {
+            Intervention inter = vm.GetIntervention;
+            interventions.Update(inter);
+            return RedirectToAction(nameof(InterventionsFromContractForAdmin), new { id = inter.ContractId });
+        }
+
+        public IActionResult Details(int id)
+        {
+            Intervention inter = interventions.Select(id); // va chercher l'objet en db
             AdminInterventionViewModel vm = new AdminInterventionViewModel(inter); // met l'objet dans mon view model
             return View(vm); // creer une vue dynamiquement grace a l'objet qu'on injecte dedan
         }
 
-        //[ActionName("GetTechInfo")]
-        //public async Task<IActionResult> GetTechInfo(int id)
-        //{
-        //    User tech = users.Select(id);
-        //    string Url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=";
-        //    HttpClient client = new HttpClient();
-        //    client.BaseAddress = new Uri(Url);
-        //    return Json(new { });
-        //}
+        public IActionResult ClientDetails(int id)
+        {
+            Intervention inter = interventions.Select(id); // va chercher l'objet en db
+            AdminInterventionViewModel vm = new AdminInterventionViewModel(inter); // met l'objet dans mon view model
+            return View(vm); // creer une vue dynamiquement grace a l'objet qu'on injecte dedan
+        }
 
-        //[ActionName("GetCustomerAddress")] 
-        //public async Task<IActionResult> GetCustomerAddress(int id)
-        //{
-
-        //    User customer = users.Select(id);
-        //    Address customerAddress = customer.PrivateAddress;
-        //    return Json(customerAddress);
-        //}
     }
 }

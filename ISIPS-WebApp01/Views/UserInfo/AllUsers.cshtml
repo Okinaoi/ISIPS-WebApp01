@@ -63,7 +63,6 @@
                         <td>
                             @Html.ActionLink("Edit", "UserEdit", new { id = item.UserId }) |
                             @Html.ActionLink("Details", "GetUserDetails", new { id = item.UserId }) |
-                            @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId })
                             <a on onclick="deleteUserInDb(@item.UserId)">Delete</a>
                         </td>
                     </tr>

@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Models.DataModels.Contract>
-@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "PendingContracts";
@@ -18,13 +17,10 @@
                     @Html.DisplayNameFor(model => model.ContractId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client.UserId)
+                    @Html.DisplayNameFor(model => model.StartDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client.Lastname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Client.Firstname)
+                    @Html.DisplayNameFor(model => model.EndDate)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
@@ -40,21 +36,16 @@
                         @Html.DisplayFor(modelItem => item.ContractId)
                     </td>
                     <td>
-                        @Html.DisplayFor(model => item.Client.UserId)
+                        @Html.DisplayFor(model => item.StartDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(model => item.Client.Lastname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => item.Client.Firstname)
+                        @Html.DisplayFor(model => item.EndDate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
-                        @{string action = Context.Session.GetInt32("sessionCompanyStatus") == 3 ? "InterventionsFromContractForAdmin" : "InterventionsFromContractForClient"; }
-                    
                     <td>
-                        @Html.ActionLink("Edit", action , "Intervention", new { id = item.ContractId })
+                        @Html.ActionLink("Details", "InterventionsFromContractForClient", "Intervention", new { id = item.ContractId })
                     </td>
                 </tr>
             }

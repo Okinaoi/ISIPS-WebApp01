@@ -1,0 +1,46 @@
+﻿@model Models.ViewModels.AdminInterventionViewModel
+
+@{
+    ViewData["Title"] = "EditPendingContract";
+}
+
+<h1 class="text-green">Modifier mon intervention</h1>
+<hr />
+        <form asp-action="Edit">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input hidden asp-for="ContractId" class="control-label" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-green mb-2 mt-5">Description du travail effectué</h3>
+                    <div class="form-group">
+                        <input height="100" asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+                
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                   
+        </form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

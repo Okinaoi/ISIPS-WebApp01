@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Models.ViewModels.AdminInterventionViewModel>
+
+@{
+    ViewData["Title"] = "AdminInterventions";
+}
+
+<div class="row">
+    <div class="col">
+        <h1 class="text-green" style="height:30px">Interventions liée à ce contrat</h1>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TechnicianName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TechnicianName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDateString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDateString)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.InterventionId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

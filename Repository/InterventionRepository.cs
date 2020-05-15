@@ -111,9 +111,30 @@ namespace Repository
             return conn.ExecuteReaderSingle(command, dr => dr.ToIntervention());
         }
 
-        public Intervention Update(Intervention enitity)
+        public Intervention Update(Intervention entity)
         {
-            throw new NotImplementedException();
+            Command command = new Command("UPDATE Interventions " +
+                                          "SET StartDate = @sd," +
+                                          "EndDate = @ed," +
+                                          "Price = @prc," +
+                                          "Duration = @dur," +
+                                          "IsOnGoing = @iog," +
+                                          "WorkDescription = @wd," +
+                                          "WorkerId = @wi," +
+                                          "ContractId = @ci " +
+                                          "WHERE InterventionId = @id");
+            command.AddParameter("sd", entity.StartDate);
+            command.AddParameter("ed", entity.EndDate);
+            command.AddParameter("prc", entity.Price);
+            command.AddParameter("dur", entity.Duration);
+            command.AddParameter("iog", entity.IsOnGoing);
+            command.AddParameter("wd", entity.Description);
+            command.AddParameter("wi", entity.Technician.UserId);
+            command.AddParameter("ci", entity.ContractId);
+            command.AddParameter("id", entity.InterventionId);
+            conn.ExecuteNonQuery(command);
+            return Select(entity.InterventionId);
+
         }
 
         public void Delete(int id)

@@ -16,6 +16,14 @@ namespace ISIPS_WebApp01.Controllers
         IRepository<Contract> contracts = new ContractRepository();
         IRepository<Address> addresses = new AddressRepository();
 
+        public IActionResult MyContracts()
+        {
+            int userId = (int)HttpContext.Session.GetInt32("sessionId");
+            List<Contract> contracts = Services.GetContractsFromUserId(userId).ToList();
+            return View(contracts);
+
+        }
+
         public IActionResult OnGoingContracts()
         {
             IEnumerable<Contract> contracts = Services.GetOnGoingContracts();

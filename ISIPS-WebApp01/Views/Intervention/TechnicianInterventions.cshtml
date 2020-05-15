@@ -4,43 +4,55 @@
     ViewData["Title"] = "TechnicianInterventions";
 }
 
-<h1 class="text-green">Mes interventions</h1>
+<h1>TechnicianInterventions</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<div class="customCardContainer">
-    @foreach (var item in Model)
-    {
-    <div class="customCard">
-        <div class="cardClientPart">
-            <div class="cardSectionHeader">
-                @item.CustomerName
-            </div>
-            <div class="clientInfoContainer">
-                <p class="text-info">@item.InterventionAddress.HouseNumber rue @item.InterventionAddress.StreetName @item.InterventionAddress.PostalCode @item.InterventionAddress.City</p>
-            </div>
-        </div>
-        <div class="cardJobDescription text-wrap">
-            <div class="cardSectionHeader">
-                Job description by worker
-            </div>
-            @item.Description
-        </div>
-        <div class="cardExtraInfos">
-            <div class="cardSectionHeader">
-                infos
-            </div>
-            <div class="clientInfoContainer">
-                <span class="text-danger">Prix: @item.Price $</span>
-                <span class="text-danger">Status : </span>
-                
-            </div>
-            
-
-        </div>
-    </div>
-    }     
-
-</div>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InterventionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterventionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.InterventionId }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.InterventionId }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

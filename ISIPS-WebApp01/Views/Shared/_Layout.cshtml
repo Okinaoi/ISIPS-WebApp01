@@ -40,21 +40,29 @@
                                             <a class="dropdown-toggle" style="font-size:30px;" href="#" id="navBarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tasks"></i> Management</a>
 
                                         }
-                                        <div class="dropdown-menu" aria-labelledby="navVarDropdownMenuLink">
+                                    <div class="dropdown-menu" aria-labelledby="navVarDropdownMenuLink">
 
-                                            @if (Context.Session.GetInt32("sessionCompanyStatus") == 1 || Context.Session.GetInt32("sessionCompanyStatus") == 2)
-                                            {
-                                                <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="CreateContract">Utilisateurs</a>
-                                            }
-                                            @if (Context.Session.GetInt32("sessionCompanyStatus") == 3)
-                                            {
-                                                <a class="dropdown-item" asp-area="" asp-controller="UserInfo" asp-action="AllUsers">Utilisateurs</a>
-                                                <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="PendingContracts">Demandes clients</a>
-                                                <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="OnGoingContracts">Contrats</a>
-                                            }
+                                        @if (Context.Session.GetInt32("sessionCompanyStatus") == 1 || Context.Session.GetInt32("sessionCompanyStatus") == 2)
+                                        {
 
-                                        
-                                        </div>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="CreateContract">Faire une demande d'intervention</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="MyContracts">Mes contrats en cours</a>
+
+                                        }
+                                        @if (Context.Session.GetInt32("sessionCompanyStatus") == 2)
+                                        {
+
+                                            <a class="dropdown-item" asp-area="" asp-controller="Intervention" asp-action="TechnicianInterventions">Mes interventions chez le client</a>
+                                        }
+                                        @if (Context.Session.GetInt32("sessionCompanyStatus") == 3)
+                                        {
+                                            <a class="dropdown-item" asp-area="" asp-controller="UserInfo" asp-action="AllUsers">Utilisateurs</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="PendingContracts">Demandes clients</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Contract" asp-action="OnGoingContracts">Contrats</a>
+                                        }
+
+
+                                    </div>
                                     </li>
                                 </ul>
                             </div>

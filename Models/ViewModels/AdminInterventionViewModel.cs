@@ -23,6 +23,14 @@ namespace Models.ViewModels
 
         public int CustomerId { get => Intervention.Client.UserId; }
 
+
+        public string Description
+        {
+            get { return Intervention.Description; }
+            set { Intervention.Description = value; }
+        }
+
+
         private string _ContractDescription;
 
         public string ContractDescription
